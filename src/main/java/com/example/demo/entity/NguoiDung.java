@@ -65,6 +65,4 @@ public class NguoiDung {
 
     @Column(name = "trang_thai")
     private Integer trangThaiND;
-
-
 }
