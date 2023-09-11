@@ -45,6 +45,4 @@ public class DiaChi {
 
     @Column(name = "quoc_gia")
     private String quocGiaDC;
-
-
 }
