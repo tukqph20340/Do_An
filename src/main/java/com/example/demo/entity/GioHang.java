@@ -18,6 +18,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "gio_hang")
 @Getter
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +36,7 @@ public class GioHang {
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
-    @Column(name = "trang_thai")
-    private Date trangThai;
+    @Column(name = "tinh_trang")
+    private Integer trangThai;
 
 }
