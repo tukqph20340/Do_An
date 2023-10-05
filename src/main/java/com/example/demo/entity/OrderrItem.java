@@ -1,4 +1,4 @@
-package entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,9 +19,9 @@ public class OrderrItem {
     @Column(name = "count")
     private Integer count;
 
-    //@ManyToOne @JoinColumn(name = "product_id")
-//    private Product product_id;
-//
-//    @ManyToOne @JoinColumn(name = "order_id")
-//    private Orderr order_id;
+    @ManyToOne @JoinColumn(name = "product_id")
+    private Product product_id;
+
+    @ManyToOne @JoinColumn(name = "order_id")
+    private Orderr order_id;
 }

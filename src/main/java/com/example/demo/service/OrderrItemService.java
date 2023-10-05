@@ -1,10 +1,9 @@
-package service;
+package com.example.demo.service;
 
-import entity.Category;
-import entity.OrderrItem;
+
+import com.example.demo.entity.OrderrItem;
 
 import java.util.List;
-
 public interface OrderrItemService {
 
     List<OrderrItem> getAll();

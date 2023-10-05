@@ -18,7 +18,7 @@ public class Product_image {
     @Column(name = "url_image", length = 1111)
     private String imageUrl;
 
-//    @ManyToOne
-//    @JoinColumn(name = "product_id", referencedColumnName = "id")
-//    private Product product;
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
 }
