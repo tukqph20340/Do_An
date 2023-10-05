@@ -34,7 +34,7 @@ public class Is_ActiveServiceImpl implements Is_ActiveService {
 
     @Override
     public Is_active getOne(Integer id) {
-        return res.getReferenceById(id);
+        return res.findById(id).get();
     }
 
     @Override

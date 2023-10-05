@@ -32,7 +32,7 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public Producer getOne(Integer id) {
-        return res.getReferenceById(id);
+        return res.findById(id).get();
     }
 
     @Override

@@ -33,7 +33,7 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public Publisher getOne(Integer id) {
-        return res.getReferenceById(id);
+        return res.findById(id).get();
     }
 
     @Override

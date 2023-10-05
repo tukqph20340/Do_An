@@ -34,7 +34,7 @@ public class Is_discountServiceImpl implements Is_discountService {
 
     @Override
     public Is_discount getOne(Integer id) {
-        return res.getReferenceById(id);
+        return res.findById(id).get();
     }
 
     @Override
