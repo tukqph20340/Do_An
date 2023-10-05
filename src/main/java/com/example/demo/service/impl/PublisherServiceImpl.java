@@ -7,6 +7,7 @@ import com.example.demo.service.ProducerService;
 import com.example.demo.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,8 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public Page<Publisher> Page(Pageable pageable) {
-        return res.findAll(pageable);
+        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        return res.findAll(pageable1);
     }
 
     @Override

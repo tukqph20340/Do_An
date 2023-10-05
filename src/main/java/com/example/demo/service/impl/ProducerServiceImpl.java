@@ -6,6 +6,7 @@ import com.example.demo.repository.PublisherRepository;
 import com.example.demo.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -20,31 +21,48 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public List<Producer> getAll() {
-        return null;
+        return res.findAll();
     }
 
     @Override
     public Page<Producer> Page(Pageable pageable) {
-        return null;
+        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        return res.findAll(pageable1);
     }
 
     @Override
     public Producer getOne(Integer id) {
-        return null;
+        return res.getReferenceById(id);
     }
 
     @Override
     public Producer add(Producer producer) {
-        return null;
+        Producer add = Producer.builder()
+                .fullname(producer.getFullname())
+                .email(producer.getEmail())
+                .phone(producer.getPhone())
+                .address(producer.getAddress())
+                .country(producer.getCountry())
+                .build();
+        return res.save(add);
     }
 
     @Override
     public Producer update(Producer producer, Integer id) {
-        return null;
+        Producer add = res.getReferenceById(id);
+        add = Producer.builder().
+                id(id)
+                .fullname(producer.getFullname())
+                .email(producer.getEmail())
+                .phone(producer.getPhone())
+                .address(producer.getAddress())
+                .country(producer.getCountry())
+                .build();
+        return res.save(add);
     }
 
     @Override
     public void delete(Producer producer) {
-
+        res.delete(producer);
     }
 }

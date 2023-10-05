@@ -8,6 +8,7 @@ import com.example.demo.service.Is_ActiveService;
 import com.example.demo.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,31 +23,42 @@ public class Is_ActiveServiceImpl implements Is_ActiveService {
 
     @Override
     public List<Is_active> getAll() {
-        return null;
+        return res.findAll();
     }
 
     @Override
     public Page<Is_active> Page(Pageable pageable) {
-        return null;
+        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        return res.findAll(pageable1);
     }
 
     @Override
     public Is_active getOne(Integer id) {
-        return null;
+        return res.getReferenceById(id);
     }
 
     @Override
     public Is_active add(Is_active isActive) {
-        return null;
+        Is_active add = Is_active.builder()
+                .nameActive(isActive.getNameActive())
+                .details(isActive.getDetails())
+                .build();
+        return res.save(add);
     }
 
     @Override
     public Is_active update(Is_active isActive, Integer id) {
-        return null;
+        Is_active update = res.getReferenceById(id);
+        update = Is_active.builder()
+                .id(id)
+                .nameActive(isActive.getNameActive())
+                .details(isActive.getDetails())
+                .build();
+        return res.save(update);
     }
 
     @Override
     public void delete(Is_active isActive) {
-
+        res.delete(isActive);
     }
 }

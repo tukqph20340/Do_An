@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Producer;
-import com.example.demo.service.ProducerService;
-import com.example.demo.service.ProductService;
-import com.example.demo.service.impl.ProducerServiceImpl;
-import com.example.demo.service.impl.ProductServiceImpl;
+import com.example.demo.entity.Is_active;
+import com.example.demo.service.Is_ActiveService;
+import com.example.demo.service.impl.Is_ActiveServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,41 +20,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/producer")
-public class ProducerController {
-
+@RequestMapping("/Isactive")
+public class Is_activeController {
     @Autowired
-    private ProducerService pro = new ProducerServiceImpl();
+    private Is_ActiveService pro = new Is_ActiveServiceImpl();
 
     @GetMapping("/view")
-    public ResponseEntity hienThi() {
+    public ResponseEntity view(){
         return new ResponseEntity(pro.getAll(), HttpStatus.OK);
     }
-
     @GetMapping("/page")
-    public Page<Producer> showPage(@RequestParam(defaultValue = "0") Integer p) {
+    public Page<Is_active> showPage(@RequestParam(defaultValue = "0") Integer p) {
         Pageable pageable1 = PageRequest.of(p, 5);
-       return pro.Page(pageable1);
+        return pro.Page(pageable1);
     }
 
     @PostMapping("/add")
-    public ResponseEntity add(@RequestBody Producer producer) {
-        return new ResponseEntity(pro.add(producer), HttpStatus.CREATED);
+    public ResponseEntity add(@RequestBody Is_active isActive) {
+        return new ResponseEntity(pro.add(isActive), HttpStatus.CREATED);
     }
 
     @GetMapping("/details/{id}")
-    public Producer detail(@PathVariable Integer id) {
-        return pro.getOne(id);
+    public ResponseEntity<Is_active> detail(@PathVariable Integer id) {
+        Is_active is = pro.getOne(id);
+        return ResponseEntity.ok(is);
     }
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Integer id) {
-        Producer delete = pro.getOne(id);
+        Is_active delete = pro.getOne(id);
         pro.delete(delete);
     }
 
     @PutMapping("/update/{id}")
-    public void update(@PathVariable Integer id,@RequestBody Producer producer){
-       pro.update(producer,id);
+    public void update(@PathVariable Integer id,@RequestBody Is_active isActive){
+        pro.update(isActive,id);
     }
 }
