@@ -42,31 +42,31 @@ public class Product {
     @Column(name = "sold")
     private Integer sold;
 
-//    @ManyToOne
-//    @JoinColumn(name = "category_id", referencedColumnName = "id")
-//    private Category category;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "author_id", referencedColumnName = "id")
-//    private Author author;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
-//    private Publisher publisher;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "producer_id", referencedColumnName = "id")
-//    private Producer producer;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "is_discount_id", referencedColumnName = "id")
-//    private IsDiscount isDiscount;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "book_jacket_id", referencedColumnName = "id")
-//    private BookJacket bookJacket;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "book_size_id", referencedColumnName = "id")
-//    private BookSize bookSize;
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private Author author;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
+    private Publisher publisher;
+
+    @ManyToOne
+    @JoinColumn(name = "producer_id", referencedColumnName = "id")
+    private Producer producer;
+
+    @ManyToOne
+    @JoinColumn(name = "is_discount_id", referencedColumnName = "id")
+    private Is_discount isDiscount;
+
+    @ManyToOne
+    @JoinColumn(name = "book_jacket_id", referencedColumnName = "id")
+    private BookJacket bookJacket;
+
+    @ManyToOne
+    @JoinColumn(name = "book_size_id", referencedColumnName = "id")
+    private BookSize bookSize;
 }

@@ -1,4 +1,4 @@
-package entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,8 +20,8 @@ public class Cart {
     @Column(name = "count")
     private Integer count;
 
-//    @ManyToOne @JoinColumn(name = "product_id")
-//    private Product product_id;
+    @ManyToOne @JoinColumn(name = "product_id")
+    private Product product_id;
 //
 //    @ManyToOne @JoinColumn(name = "user_id")
 //    private Userr user_id;

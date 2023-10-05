@@ -138,6 +138,9 @@ sales    nvarchar(1111),
 order_id      integer,
 primary key (id)) 
 
+
+
+
 create table promotion(
 id    integer not null   IDENTITY(1,1),
 coup_code    nvarchar(1111),

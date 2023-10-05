@@ -1,6 +1,7 @@
-package repository;
+package com.example.demo.repository;
 
-import entity.Orderr;
+import com.example.demo.entity.Orderr;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

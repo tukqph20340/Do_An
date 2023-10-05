@@ -42,7 +42,7 @@ public class Statistic {
     private String sales;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "order_id")
-//    private Orderr orderr;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orderr orderr;
 }

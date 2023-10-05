@@ -1,11 +1,11 @@
-package service.impl;
+package com.example.demo.service.impl;
 
-import entity.OrderrItem;
+
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.CategoryRepository;
-import repository.OrderrItemRepository;
-import service.OrderrItemService;
 
 import java.util.List;
 
