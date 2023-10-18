@@ -7,11 +7,17 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getAllProducts();
-    Product getProductById(Integer id);
-    void createProduct(Product product);
-    void updateProduct(Product product);
-    void deleteProduct(Integer id);
-    Page<Product> getAll(Pageable pageable);
+    List<Product> getAll();
+
+    Page<Product> Page(Pageable pageable);
+
+    Product getOne(Integer id);
+
+    Product add(Product product);
+
+    Product update(Product product , Integer id);
+
+    void delete(Product product);
+
     List<Product> searchProducts(String keyword);
 }
