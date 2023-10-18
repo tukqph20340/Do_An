@@ -23,8 +23,8 @@ public class BookSize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer idBookJacket;
+    private Integer idBookSize;
 
     @Column(name = "name_size")
-    private String nameJacket;
+    private String nameSize;
 }
