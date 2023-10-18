@@ -5,6 +5,7 @@ import com.example.demo.repository.AuthorRepository;
 import com.example.demo.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -14,40 +15,51 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
-    private AuthorRepository authorRepository;
+    private AuthorRepository res;
 
     @Override
-    public List<Author> getAllAuthors() {
-        return authorRepository.findAll();
+    public List<Author> getAll() {
+        return res.findAll();
     }
 
     @Override
-    public Author getAuthorById(Integer id) {
-        return authorRepository.findById(id).orElse(null);
+    public Page<Author> Page(Pageable pageable) {
+        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        return res.findAll(pageable1);
     }
 
     @Override
-    public void createAuthor(Author user) {
-        authorRepository.save(user);
+    public Author getOne(Integer id) {
+        return res.findById(id).get();
     }
 
     @Override
-    public void updateAuthor(Author user) {
-        authorRepository.save(user);
+    public Author add(Author author) {
+        Author add = Author.builder()
+                .firstName(author.getFirstName())
+                .lastName(author.getLastName())
+                .build();
+        return res.save(add);
     }
 
     @Override
-    public void deleteAuthor(Integer id) {
-        authorRepository.deleteById(id);
+    public Author update(Author author, Integer id) {
+        Author update = res.getReferenceById(id);
+        update = Author.builder()
+                .id(id)
+                .firstName(author.getFirstName())
+                .lastName(author.getLastName())
+                .build();
+        return res.save(update);
     }
 
     @Override
-    public Page<Author> getAll(Pageable pageable) {
-        return authorRepository.findAll(pageable);
+    public void delete(Author author) {
+        res.delete(author);
     }
 
     @Override
     public List<Author> searchAuthors(String keyword) {
-        return authorRepository.findByFirstName(keyword);
+        return res.search(keyword);
     }
 }

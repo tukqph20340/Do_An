@@ -7,11 +7,17 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface AuthorService {
-    List<Author> getAllAuthors();
-    Author getAuthorById(Integer id);
-    void createAuthor(Author user);
-    void updateAuthor(Author user);
-    void deleteAuthor(Integer id);
-    Page<Author> getAll(Pageable pageable);
+    List<Author> getAll();
+
+    Page<Author> Page(Pageable pageable);
+
+    Author getOne(Integer id);
+
+    Author add(Author author);
+
+    Author update(Author author , Integer id);
+
+    void delete(Author author);
+
     List<Author> searchAuthors(String keyword);
 }

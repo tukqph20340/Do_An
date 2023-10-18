@@ -7,11 +7,17 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
-    User getUserById(String id);
-    void createUser(User user);
-    void updateUser(User user);
-    void deleteUser(String id);
-    Page<User> getAll(Pageable pageable);
+    List<User> getAll();
+
+    Page<User> Page(Pageable pageable);
+
+    User getOne(String id);
+
+    User add(User user);
+
+    User update(User user , String id);
+
+    void delete(User user);
+
     List<User> searchUsers(String keyword);
 }

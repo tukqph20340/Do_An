@@ -5,6 +5,7 @@ import com.example.demo.repository.ProductImageRepository;
 import com.example.demo.service.ProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -14,40 +15,49 @@ import java.util.List;
 public class ProductImageServiceImpl implements ProductImageService {
 
     @Autowired
-    private ProductImageRepository productImageRepository;
+    private ProductImageRepository res;
 
     @Override
-    public List<Product_image> getAllProductIms() {
-        return productImageRepository.findAll();
+    public List<Product_image> getAll() {
+        return res.findAll();
     }
 
     @Override
-    public Product_image getProductImById(Integer id) {
-        return productImageRepository.findById(id).orElse(null);
+    public Page<Product_image> Page(Pageable pageable) {
+        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        return res.findAll(pageable1);
     }
 
     @Override
-    public void createProductIm(Product_image productIm) {
-        productImageRepository.save(productIm);
+    public Product_image getOne(Integer id) {
+        return res.findById(id).get();
     }
 
     @Override
-    public void updateProductIm(Product_image productIm) {
-        productImageRepository.save(productIm);
+    public Product_image add(Product_image product_image) {
+        Product_image add = Product_image.builder()
+                .imageUrl(product_image.getImageUrl())
+                .build();
+        return res.save(add);
     }
 
     @Override
-    public void deleteProductIm(Integer id) {
-        productImageRepository.deleteById(id);
+    public Product_image update(Product_image product_image, Integer id) {
+        Product_image update = res.getReferenceById(id);
+        update = Product_image.builder()
+                .id(id)
+                .imageUrl(product_image.getImageUrl())
+                .build();
+        return res.save(update);
     }
 
     @Override
-    public Page<Product_image> getAll(Pageable pageable) {
-        return productImageRepository.findAll(pageable);
+    public void delete(Product_image product_image) {
+        res.delete(product_image);
     }
 
     @Override
-    public List<Product_image> searchProductIms(String keyword) {
-        return productImageRepository.findByImageUrl(keyword);
+    public List<Product_image> searchProductImages(String keyword) {
+        return res.search(keyword);
     }
 }
