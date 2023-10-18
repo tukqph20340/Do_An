@@ -38,8 +38,8 @@ public class Statistic {
     private Integer quantity;
 
 
-    @Column(name = "sales")
-    private String sales;
+//    @Column(name = "sales")
+//    private String sales;
 
 
     @ManyToOne
