@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>Category</h1>
+<hr>
+<h1>Thông Tin Cart</h1>
+
+<ul th:object="${cart}">
+    <li>ID : [[${cart.id}]]</li>
+    <li>Count : [[${cart.count}]]</li>
+    <li>Product : [[${cart.productid.productName}]]</li>
+    <li>User : [[${cart.userid.userName}]]</li>
+    <li>IsActive : [[${cart.isactiveid.nameactive}]]</li>
+</ul>
+<button  class="btn btn-primary"><a th:href="@{/cart/hienthi}" style="color: black">Quay Lại</a></button>
+
+</body>
+</html>

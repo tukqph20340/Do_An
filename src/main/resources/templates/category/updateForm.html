@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>Category</h1>
+<hr>
+<h1>Update Category</h1>
+<form th:action="@{/category/update/{id} (id=${category.id})}"  th:object="${category}" method="post">
+    Name <input type="text" th:field="*{categoryname}"> </br>
+    <hr>
+    <button type="submit">Update Category</button>
+</form>
+</body>
+</html>
