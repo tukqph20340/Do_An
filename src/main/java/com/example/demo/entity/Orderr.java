@@ -38,7 +38,7 @@ public class Orderr {
     private String note;
 
     @Column(name = "payment_method")
-    private String payment_method;
+    private String paymentmethod;
 
     @Column(name = "phone")
     private String phone;
@@ -47,10 +47,10 @@ public class Orderr {
     private Integer total;
 
     @ManyToOne @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userid;
 
     @ManyToOne @JoinColumn(name = "is_active_id")
-    private Is_active is_active_id;
+    private Is_active isactiveid;
 
 
 

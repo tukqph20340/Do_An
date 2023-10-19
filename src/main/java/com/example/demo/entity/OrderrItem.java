@@ -20,8 +20,8 @@ public class OrderrItem {
     private Integer count;
 
     @ManyToOne @JoinColumn(name = "product_id")
-    private Product product_id;
+    private Product productid;
 
     @ManyToOne @JoinColumn(name = "order_id")
-    private Orderr order_id;
+    private Orderr orderid;
 }

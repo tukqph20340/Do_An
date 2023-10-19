@@ -6,6 +6,7 @@ import com.example.demo.repository.CartRepository;
 import com.example.demo.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +25,28 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Page<Cart> getAll(Pageable pageable) {
-        return null;
-    }
-
-    @Override
     public Cart save(Cart cart) {
         return cartRepository.save(cart);
     }
 
     @Override
     public Cart update(Cart cart) {
-        return null;
+        return cartRepository.save(cart);
+    }
+
+    @Override
+    public Cart getById(Integer id) {
+        return cartRepository.findById(id).get();
     }
 
     @Override
     public void delete(Integer id) {
         cartRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Cart> findPage(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return this.cartRepository.findAll(pageable);
     }
 }

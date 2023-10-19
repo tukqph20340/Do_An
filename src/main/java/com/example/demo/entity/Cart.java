@@ -20,14 +20,14 @@ public class Cart {
     @Column(name = "count")
     private Integer count;
 
-    @ManyToOne @JoinColumn(name = "product_id")
-    private Product product_id;
-//
-//    @ManyToOne @JoinColumn(name = "user_id")
-//    private Userr user_id;
-//
-//    @ManyToOne @JoinColumn(name = "is_active_id")
-//    private IsActive is_active_id;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product productid;
 
+    @ManyToOne @JoinColumn(name = "user_id")
+    private User userid;
+
+    @ManyToOne @JoinColumn(name = "is_active_id")
+    private Is_active isactiveid;
 
 }
