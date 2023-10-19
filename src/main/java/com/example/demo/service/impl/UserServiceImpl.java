@@ -8,68 +8,42 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository res;
+    private UserRepository repository;
 
     @Override
     public List<User> getAll() {
-        return res.findAll();
+        return repository.findAll();
     }
 
     @Override
-    public Page<User> Page(Pageable pageable) {
-        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-        return res.findAll(pageable1);
+    public Page<User> getPage(Integer pageNo, Integer size) {
+        Pageable pageable =  PageRequest.of(pageNo,size);
+        return repository.findAll(pageable);
     }
 
     @Override
-    public User getOne(String id) {
-        return res.findById(id).get();
+    public User detail(String id) {
+        return repository.findById(id).get();
+    }
+
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 
     @Override
     public User add(User user) {
-        User add = User.builder()
-                .avatar(user.getAvatar())
-                .email(user.getEmail())
-                .loginType(user.getLoginType())
-                .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .role(user.getRole())
-                .userName(user.getUserName())
-                .build();
-        return res.save(add);
+        return repository.save(user);
     }
 
     @Override
-    public User update(User user, String id) {
-        User update = res.getReferenceById(id);
-        update = User.builder()
-                .id(id)
-                .avatar(user.getAvatar())
-                .email(user.getEmail())
-                .loginType(user.getLoginType())
-                .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .role(user.getRole())
-                .userName(user.getUserName())
-                .build();
-        return res.save(update);
-    }
-
-    @Override
-    public void delete(User author) {
-        res.delete(author);
-    }
-
-    @Override
-    public List<User> searchUsers(String keyword) {
-        return res.searchUser(keyword);
+    public User update(User user) {
+        return repository.save(user);
     }
 }
