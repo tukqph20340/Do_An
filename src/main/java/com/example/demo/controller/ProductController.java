@@ -2,58 +2,83 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Product;
 import com.example.demo.service.ProductService;
-import com.example.demo.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Date;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/Product")
+@Controller
+@RequestMapping("/product/")
 public class ProductController {
     @Autowired
-    private ProductService pro = new ProductServiceImpl();
+    ProductService service;
 
-    @GetMapping("/view")
-    public ResponseEntity view(){
-        return new ResponseEntity(pro.getAll(), HttpStatus.OK);
+    @GetMapping("hien-thi")
+    public String getAll(Model model, @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
+        Page<Product> categoryList = service.getPage(pageNo, 5);
+        model.addAttribute("list", categoryList.getContent());
+        model.addAttribute("categoryPage", categoryList.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        model.addAttribute("Cate", new Product());
+        return "admin/Product/product.html";
     }
 
-    @GetMapping("/page")
-    public Page<Product> showPage(@RequestParam(defaultValue = "0") Integer p) {
-        Pageable pageable1 = PageRequest.of(p, 5);
-        return pro.Page(pageable1);
+    @GetMapping("view-add")
+    public String viewAll() {
+        return "admin/Product/add_product.html";
     }
 
-    @PostMapping("/add")
-    public ResponseEntity add(@RequestBody Product product) {
-        return new ResponseEntity(pro.add(product), HttpStatus.CREATED);
+    @PostMapping("add")
+    public String add(@RequestParam("createdAt") Date createdAt,
+                      @RequestParam("description") String description,
+                      @RequestParam("isActive") Integer isActive,
+                      @RequestParam("isSelling") Integer isSelling,
+                      @RequestParam("price") Integer price,
+                      @RequestParam("productName") String productName,
+                      @RequestParam("quantity") Integer quantity,
+                      @RequestParam("sold") Integer sold){
+        Product product = new Product();
+        product.setCreatedAt(createdAt);
+        product.setDescription(description);
+        product.setIsActive(isActive);
+        product.setIsSelling(isSelling);
+        product.setPrice(price);
+        product.setProductName(productName);
+        product.setQuantity(quantity);
+        product.setSold(sold);
+        service.add(product);
+        return "redirect:/product/hien-thi";
+
     }
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<Product> detail(@PathVariable Integer id) {
-        Product is = pro.getOne(id);
-        return ResponseEntity.ok(is);
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable("id") String id) {
+        service.delete(Integer.valueOf(id));
+        return "redirect:/product/hien-thi";
+
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        Product delete = pro.getOne(id);
-        pro.delete(delete);
+    @GetMapping("view-update/{id}")
+    public String update1(Model model,@PathVariable("id") String id) {
+        Product product =service.detail(Integer.valueOf(id));
+        model.addAttribute("detail",product);
+        return "admin/Product/update_product.html";
     }
 
-    @PutMapping("/update/{id}")
-    public void update(@PathVariable Integer id,@RequestBody Product product){
-        pro.update(product, id);
-    }
-
-    @GetMapping("/search")
-    public List<Product> searchProducts(@RequestParam String keyword) {
-        return pro.searchProducts(keyword);
+    @PostMapping("update/{id}")
+    public String update(@PathVariable("id") String id,@ModelAttribute Product product) {
+        Product product1 =service.detail(Integer.valueOf(id));
+        product1.setCreatedAt(product.getCreatedAt());
+        product1.setDescription(product.getDescription());
+        product1.setIsActive(product.getIsActive());
+        product1.setIsSelling(product.getIsSelling());
+        product1.setPrice(product.getPrice());
+        product1.setProductName(product.getProductName());
+        product1.setQuantity(product.getQuantity());
+        product1.setSold(product.getSold());
+        service.update(product1);
+        return "redirect:/product/hien-thi";
     }
 }

@@ -8,58 +8,42 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
-    private AuthorRepository res;
+    private AuthorRepository repository;
 
     @Override
     public List<Author> getAll() {
-        return res.findAll();
+        return repository.findAll();
     }
 
     @Override
-    public Page<Author> Page(Pageable pageable) {
-        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-        return res.findAll(pageable1);
+    public Page<Author> getPage(Integer pageNo, Integer size) {
+        Pageable pageable =  PageRequest.of(pageNo,size);
+        return repository.findAll(pageable);
     }
 
     @Override
-    public Author getOne(Integer id) {
-        return res.findById(id).get();
+    public Author detail(Integer id) {
+        return repository.findById(id).get();
+    }
+
+    @Override
+    public void delete(Integer id) {
+        repository.deleteById(id);
     }
 
     @Override
     public Author add(Author author) {
-        Author add = Author.builder()
-                .firstName(author.getFirstName())
-                .lastName(author.getLastName())
-                .build();
-        return res.save(add);
+        return repository.save(author);
     }
 
     @Override
-    public Author update(Author author, Integer id) {
-        Author update = res.getReferenceById(id);
-        update = Author.builder()
-                .id(id)
-                .firstName(author.getFirstName())
-                .lastName(author.getLastName())
-                .build();
-        return res.save(update);
-    }
-
-    @Override
-    public void delete(Author author) {
-        res.delete(author);
-    }
-
-    @Override
-    public List<Author> searchAuthors(String keyword) {
-        return res.search(keyword);
+    public Author update(Author author) {
+        return repository.save(author);
     }
 }

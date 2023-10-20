@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="http://www.thymeleaf.org">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-12" style="text-align: center;margin-top: 20px">
+            <form th:action="@{/product/update/{id}(id=${detail.id})}" method="post">
+                <label style="color: black">Id Product : </label>
+                <input type="text" disabled="disabled" name="id" th:field="*{detail.id}">
+                <br>
+                <br>
+                <label style="color: black">createdAt : </label>
+                <input type="date" name="createdAt" th:field="*{detail.createdAt}">
+                <br>
+                <br>
+                <label style="color: black">description : </label>
+                <input type="text" name="description" th:field="*{detail.description}">
+                <br>
+                <br>
+                <label style="color: black">isActive : </label>
+                <input type="text" name="isActive" th:field="*{detail.isActive}">
+                <br>
+                <br>
+                <label style="color: black">isSelling : </label>
+                <input type="text" name="isSelling" th:field="*{detail.isSelling}">
+                <br>
+                <br>
+                <label style="color: black">price : </label>
+                <input type="text" name="price" th:field="*{detail.price}">
+                <br>
+                <br>
+                <label style="color: black">productName : </label>
+                <input type="text" name="productName" th:field="*{detail.productName}">
+                <br>
+                <br>
+                <label style="color: black">quantity : </label>
+                <input type="text" name="quantity" th:field="*{detail.quantity}">
+                <br>
+                <br>
+                <label style="color: black">sold : </label>
+                <input type="text" name="sold" th:field="*{detail.sold}">
+                <br>
+                <br>
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

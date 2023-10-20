@@ -2,57 +2,64 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Author;
 import com.example.demo.service.AuthorService;
-import com.example.demo.service.impl.AuthorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/Author")
+@Controller
+@RequestMapping("/author/")
 public class AuthorController {
     @Autowired
-    private AuthorService pro = new AuthorServiceImpl();
+    AuthorService service;
 
-    @GetMapping("/view")
-    public ResponseEntity view(){
-        return new ResponseEntity(pro.getAll(), HttpStatus.OK);
-    }
-    @GetMapping("/page")
-    public Page<Author> showPage(@RequestParam(defaultValue = "0") Integer p) {
-        Pageable pageable1 = PageRequest.of(p, 5);
-        return pro.Page(pageable1);
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity add(@RequestBody Author author) {
-        return new ResponseEntity(pro.add(author), HttpStatus.CREATED);
+    @GetMapping("hien-thi")
+    public String getAll(Model model, @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
+        Page<Author> categoryList = service.getPage(pageNo, 5);
+        model.addAttribute("list", categoryList.getContent());
+        model.addAttribute("categoryPage", categoryList.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        model.addAttribute("Cate", new Author());
+        return "admin/Author/product.html";
     }
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<Author> detail(@PathVariable Integer id) {
-        Author is = pro.getOne(id);
-        return ResponseEntity.ok(is);
+    @GetMapping("view-add")
+    public String viewAll() {
+        return "admin/Author/add_product.html";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        Author delete = pro.getOne(id);
-        pro.delete(delete);
+    @PostMapping("add")
+    public String add(@RequestParam("firstName") String firstName,
+                      @RequestParam("lastName") String lastName) {
+        Author author = new Author();
+        author.setFirstName(firstName);
+        author.setLastName(lastName);
+        service.add(author);
+        return "redirect:/author/hien-thi";
+
     }
 
-    @PutMapping("/update/{id}")
-    public void update(@PathVariable Integer id,@RequestBody Author author){
-        pro.update(author, id);
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable("id") String id) {
+        service.delete(Integer.valueOf(id));
+        return "redirect:/author/hien-thi";
+
     }
 
-    @GetMapping("/search")
-    public List<Author> searchAuthors(@RequestParam String keyword) {
-        return pro.searchAuthors(keyword);
+    @GetMapping("view-update/{id}")
+    public String update1(Model model,@PathVariable("id") String id) {
+        Author author =service.detail(Integer.valueOf(id));
+        model.addAttribute("detail",author);
+        return "admin/Author/update_product.html";
+    }
+
+    @PostMapping("update/{id}")
+    public String update(@PathVariable("id") String id,@ModelAttribute Author author) {
+        Author author1 =service.detail(Integer.valueOf(id));
+        author1.setFirstName(author.getFirstName());
+        author1.setLastName(author.getLastName());
+        service.update(author1);
+        return "redirect:/author/hien-thi";
     }
 }
