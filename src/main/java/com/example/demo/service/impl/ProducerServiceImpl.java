@@ -25,9 +25,9 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
-    public Page<Producer> Page(Pageable pageable) {
-        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-        return res.findAll(pageable1);
+    public Page<Producer> getPage(Integer pageNo, Integer size){
+        Pageable pageable =  PageRequest.of(pageNo,size);
+        return res.findAll(pageable);
     }
 
     @Override
@@ -48,17 +48,8 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
-    public Producer update(Producer producer, Integer id) {
-        Producer add = res.getReferenceById(id);
-        add = Producer.builder().
-                id(id)
-                .fullname(producer.getFullname())
-                .email(producer.getEmail())
-                .phone(producer.getPhone())
-                .address(producer.getAddress())
-                .country(producer.getCountry())
-                .build();
-        return res.save(add);
+    public Producer update(Producer producer) {
+        return res.save(producer);
     }
 
     @Override

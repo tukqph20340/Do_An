@@ -26,9 +26,9 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public Page<Publisher> Page(Pageable pageable) {
-        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-        return res.findAll(pageable1);
+    public Page<Publisher> getPage(Integer pageNo, Integer size) {
+        Pageable pageable =  PageRequest.of(pageNo,size);
+        return res.findAll(pageable);
     }
 
     @Override
@@ -50,17 +50,8 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public Publisher update(Publisher publisher, Integer id) {
-        Publisher update = res.getReferenceById(id);
-        update= Publisher.builder()
-                .id(id)
-                .fullname(publisher.getFullname())
-                .email(publisher.getEmail())
-                .phone(publisher.getPhone())
-                .address(publisher.getAddress())
-                .country(publisher.getCountry())
-                .build();
-        return res.save(update);
+    public Publisher update(Publisher publisher) {
+        return res.save(publisher);
     }
 
     @Override

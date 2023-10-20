@@ -10,13 +10,13 @@ import java.util.UUID;
 public interface PublisherService {
     List<Publisher> getAll();
 
-    Page<Publisher> Page(Pageable pageable);
+    Page<Publisher> getPage(Integer pageNo, Integer size);
 
     Publisher getOne(Integer id);
 
     Publisher add(Publisher publisher);
 
-    Publisher update(Publisher publisher , Integer id);
+    Publisher update(Publisher publisher);
 
     void delete(Publisher publisher);
 }
