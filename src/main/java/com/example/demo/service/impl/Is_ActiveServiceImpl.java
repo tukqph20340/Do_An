@@ -27,9 +27,9 @@ public class Is_ActiveServiceImpl implements Is_ActiveService {
     }
 
     @Override
-    public Page<Is_active> Page(Pageable pageable) {
-        Pageable pageable1 = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-        return res.findAll(pageable1);
+    public Page<Is_active> getPage(Integer pageNo, Integer size){
+        Pageable pageable =  PageRequest.of(pageNo,size);
+        return res.findAll(pageable);
     }
 
     @Override
@@ -47,14 +47,9 @@ public class Is_ActiveServiceImpl implements Is_ActiveService {
     }
 
     @Override
-    public Is_active update(Is_active isActive, Integer id) {
-        Is_active update = res.getReferenceById(id);
-        update = Is_active.builder()
-                .id(id)
-                .nameActive(isActive.getNameActive())
-                .details(isActive.getDetails())
-                .build();
-        return res.save(update);
+    public Is_active update(Is_active isActive) {
+
+        return res.save(isActive);
     }
 
     @Override
